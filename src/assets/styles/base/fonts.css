@@ -1,0 +1,32 @@
+/* abril-fatface-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Abril Fatface';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Abril Fatface'), local('AbrilFatface-Regular'),
+    url('../../fonts/abril-fatface-v12-latin-regular.woff2') format('woff2'),
+    url('../../fonts/abril-fatface-v12-latin-regular.woff') format('woff');
+}
+
+/* roboto-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto'), local('Roboto-Regular'),
+    url('../../fonts/roboto-v20-latin-regular.woff2') format('woff2'),
+    url('../../fonts/roboto-v20-latin-regular.woff') format('woff');
+}
+
+/* roboto-700 - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Roboto Bold'), local('Roboto-Bold'),
+    url('../../fonts/roboto-v20-latin-700.woff2') format('woff2'),
+    url('../../fonts/roboto-v20-latin-700.woff') format('woff');
+}

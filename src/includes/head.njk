@@ -1,0 +1,26 @@
+<head>
+  <title>{{ title }}</title>
+
+  {% if env.dev %}
+  <link rel="stylesheet" href="/styles/main.css" />
+
+  <link
+    rel="preload"
+    as="font"
+    href="/fonts/roboto-v20-latin-regular.woff2"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+
+  <link
+    rel="preload"
+    as="font"
+    href="/fonts/abril-fatface-v12-latin-regular.woff2"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+  {% endif %}
+
+  <!-- import meta tags -->
+  {% include "meta.njk" %}
+</head>

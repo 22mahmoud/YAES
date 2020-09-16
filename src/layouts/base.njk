@@ -1,0 +1,15 @@
+---
+title: 'YAES - Yet another eleventy starter.'
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  {% include "head.njk" %}
+  <body>
+    {{ content | safe }}
+
+    {% if env.dev %}
+    <script type="module" src="/js/app.js" async defer></script>
+    {% endif %}
+  </body>
+</html>

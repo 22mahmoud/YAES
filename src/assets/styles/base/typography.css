@@ -1,0 +1,124 @@
+h1,
+.display-1,
+h2,
+.display-2,
+h3,
+.display-3,
+h4,
+.display-4,
+h5,
+.display-5,
+h6,
+.display-6 {
+  font-family: var(--font-family-display);
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0;
+  margin-bottom: rfs(0.5rem);
+  text-rendering: optimizeLegibility;
+}
+
+h1 {
+  font-size: var(--h1-font-size);
+}
+
+h2 {
+  font-size: var(--h2-font-size);
+}
+
+h3 {
+  font-size: var(--h3-font-size);
+}
+
+h4 {
+  font-size: var(--h4-font-size);
+}
+
+h5 {
+  font-size: var(--h5-font-size);
+}
+
+h6 {
+  font-size: var(--h6-font-size);
+}
+
+.display-1 {
+  font-size: var(--display-1-font-size);
+}
+
+.display-2 {
+  font-size: var(--display-2-font-size);
+}
+.display-3 {
+  font-size: var(--display-3-font-size);
+}
+
+.display-4 {
+  font-size: var(--display-4-font-size);
+}
+
+.display-5 {
+  font-size: var(--display-5-font-size);
+}
+
+.display-6 {
+  font-size: var(--display-6-font-size);
+}
+
+.text-xs {
+  font-size: var(--text-xs-font-size);
+}
+
+.text-xs,
+.text-sm,
+.text-base,
+.text-lg,
+.text-xl,
+.text-2xl,
+.text-3xl,
+.text-4xl,
+.text-5xl,
+.text-6xl {
+  font-family: var(--font-family);
+}
+
+.text-sm {
+  font-size: var(--text-sm-font-size);
+}
+
+.text-base {
+  font-size: var(--text-base-font-size);
+}
+
+.text-lg {
+  font-size: var(--text-lg-font-size);
+}
+
+.text-xl {
+  font-size: var(--text-xl-font-size);
+}
+
+.text-2xl {
+  font-size: var(--text-2xl-font-size);
+}
+
+.text-3xl {
+  font-size: var(--text-3xl-font-size);
+}
+
+.text-4xl {
+  font-size: var(--text-4xl-font-size);
+}
+
+.text-5xl {
+  font-size: var(--text-5xl-font-size);
+}
+
+.text-6xl {
+  font-size: var(--text-6xl-font-size);
+}
+
+p {
+  margin: 0;
+  margin-bottom: var(--paragraph-margin-bottom);
+}

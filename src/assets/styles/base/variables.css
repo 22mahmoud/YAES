@@ -1,0 +1,33 @@
+:root {
+  --font-family-display: 'Abril Fatface', cursive;
+  --font-family: 'Roboto', sans-serif;
+
+  --font-size-base: 16px;
+
+  --h1-font-size: rfs(2.5rem);
+  --h2-font-size: rfs(2rem);
+  --h3-font-size: rfs(1.75rem);
+  --h4-font-size: rfs(1.5rem);
+  --h5-font-size: rfs(1.25rem);
+  --h6-font-size: rfs(1rem);
+
+  --display-1-font-size: rfs(5rem);
+  --display-2-font-size: rfs(4.5rem);
+  --display-3-font-size: rfs(4rem);
+  --display-4-font-size: rfs(3.5rem);
+  --display-5-font-size: rfs(3rem);
+  --display-6-font-size: rfs(2.5rem);
+
+  --text-xs-font-size: rfs(0.75rem);
+  --text-sm-font-size: rfs(0.875rem);
+  --text-base-font-size: rfs(1rem);
+  --text-lg-font-size: rfs(1.125rem);
+  --text-xl-font-size: rfs(1.25rem);
+  --text-2xl-font-size: rfs(1.5rem);
+  --text-3xl-font-size: rfs(1.875rem);
+  --text-4xl-font-size: rfs(2.25rem);
+  --text-5xl-font-size: rfs(3rem);
+  --text-6xl-font-size: rfs(4rem);
+
+  --paragraph-margin-bottom: rfs(1rem);
+}
