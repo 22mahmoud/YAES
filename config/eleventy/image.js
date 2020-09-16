@@ -50,7 +50,7 @@ async function handleImage({ src: relativeSrc, alt, class: className }) {
 
   if (!alt) throw new Error(`Missing \`alt\` on myImage from: ${src}`);
 
-  const src = getSrc(relativeSrc, this.page.outputPath);
+  const src = getSrc(relativeSrc, this.page.inputPath);
 
   let stats = await Image(src, {
     widths: [24, 320, 640, 960, 1200, 1800, 2400],
