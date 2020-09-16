@@ -145,17 +145,19 @@ module.exports = {
       logo: path.resolve(__dirname, 'src/logo.png'),
       cache: true,
       inject: true,
-      name: 'Yet another eleventy(11ty) starter',
-      short_name: 'YAES',
-      description:
-        'starter kit for your next eleventy(11ty) project using postcss, es6, gulp',
-      dir: 'auto',
-      lang: 'en-US',
-      display: 'standalone',
-      orientation: 'any',
-      start_url: '/',
-      background_color: '#222',
-      theme_color: '#222',
+      favicons: {
+        name: 'Yet another eleventy(11ty) starter',
+        short_name: 'YAES',
+        description:
+          'starter kit for your next eleventy(11ty) project using postcss, es6, gulp',
+        dir: 'auto',
+        lang: 'en-US',
+        display: 'standalone',
+        orientation: 'any',
+        start_url: '/',
+        background_color: '#222',
+        theme_color: '#222',
+      },
     }),
 
     new SriPlugin({
