@@ -143,7 +143,7 @@ module.exports = {
 
     new FaviconsWebpackPlugin({
       logo: path.resolve(__dirname, 'src/logo.png'),
-      cache: true,
+      cache: '.wwp-cache',
       inject: true,
       favicons: {
         name: 'Yet another eleventy(11ty) starter',
