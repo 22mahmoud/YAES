@@ -23,7 +23,17 @@ const htmls = fg.sync('build/**/*.html', { dot: false }).map(
     new HtmlWebpackPlugin({
       name: template.split('/').slice(1).join('/'),
       template,
-      minify: true,
+      inject: 'head',
+      minify: {
+        removeAttributeQuotes: true,
+        collapseBooleanAttributes: true,
+        collapseWhitespace: true,
+        removeComments: true,
+        sortClassName: true,
+        sortAttributes: true,
+        html5: true,
+        decodeEntities: true,
+      },
     })
 );
 
