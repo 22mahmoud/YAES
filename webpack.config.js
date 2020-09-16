@@ -26,17 +26,16 @@ const htmls = fg.sync('build/**/*.html', { dot: false }).map(
       name: template.split('/').slice(1).join('/'),
       template,
       inject: 'head',
-      minify: true,
-      // minify: {
-      //   removeAttributeQuotes: true,
-      //   collapseBooleanAttributes: true,
-      //   collapseWhitespace: true,
-      //   removeComments: true,
-      //   sortClassName: true,
-      //   sortAttributes: true,
-      //   html5: true,
-      //   decodeEntities: true,
-      // },
+      minify: {
+        removeAttributeQuotes: true,
+        collapseBooleanAttributes: true,
+        collapseWhitespace: true,
+        removeComments: true,
+        sortClassName: true,
+        sortAttributes: true,
+        html5: true,
+        decodeEntities: true,
+      },
     })
 );
 
