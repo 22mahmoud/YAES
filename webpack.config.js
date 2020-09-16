@@ -1,8 +1,11 @@
 const path = require('path');
+const imageminMozjpeg = require('imagemin-mozjpeg');
+const imageminWebp = require('imagemin-webp');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const webpack = require('webpack');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const PurgecssPlugin = require('purgecss-webpack-plugin');
@@ -140,6 +143,18 @@ module.exports = {
 
     new ScriptExtHtmlWebpackPlugin({
       defaultAttribute: 'defer',
+    }),
+
+    new ImageminPlugin({
+      test: /\.(jpe?g|png|gif|svg|webp)$/i,
+      plugins: [
+        imageminMozjpeg({
+          quality: '70',
+        }),
+        imageminWebp({
+          quality: 50,
+        }),
+      ],
     }),
   ],
 
