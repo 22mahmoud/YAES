@@ -36,6 +36,7 @@
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.4",
     "fast-glob": "^3.2.4",
+    "favicons-webpack-plugin": "^4.2.0",
     "file-loader": "^6.1.0",
     "gulp": "^4.0.2",
     "gulp-cli": "^2.3.0",

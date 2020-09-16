@@ -2,7 +2,6 @@ const { handleImage } = require('./config/eleventy/image');
 
 module.exports = (cfg) => {
   cfg.addPassthroughCopy({ 'src/assets/fonts': 'fonts' });
-  cfg.addPassthroughCopy({ 'src/static': 'assets' });
 
   /* Filters */
   cfg.addFilter('jsAsset', (name) => {

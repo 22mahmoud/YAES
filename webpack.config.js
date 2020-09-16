@@ -1,4 +1,5 @@
 const path = require('path');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const SriPlugin = require('webpack-subresource-integrity');
 const imageminMozjpeg = require('imagemin-mozjpeg');
 const imageminWebp = require('imagemin-webp');
@@ -132,7 +133,6 @@ module.exports = {
 
     new CopyPlugin({
       patterns: [
-        { from: 'build/assets', to: 'assets' },
         {
           from: 'build/images',
           to: 'images',
@@ -141,6 +141,23 @@ module.exports = {
     }),
 
     ...htmls,
+
+    new FaviconsWebpackPlugin({
+      logo: path.resolve(__dirname, 'src/logo.png'),
+      cache: true,
+      inject: true,
+      name: 'Yet another eleventy(11ty) starter',
+      short_name: 'YAES',
+      description:
+        'starter kit for your next eleventy(11ty) project using postcss, es6, gulp',
+      dir: 'auto',
+      lang: 'en-US',
+      display: 'standalone',
+      orientation: 'any',
+      start_url: '/',
+      background_color: '#222',
+      theme_color: '#222',
+    }),
 
     new SriPlugin({
       hashFuncNames: ['sha256', 'sha384'],
