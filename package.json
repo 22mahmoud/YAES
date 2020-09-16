@@ -74,6 +74,7 @@
     "webpack-cli": "^3.3.12",
     "webpack-manifest-plugin": "^2.2.0",
     "webpack-stream": "^6.1.0",
+    "webpack-subresource-integrity": "^1.4.1",
     "workbox-cli": "^5.1.4"
   },
   "dependencies": {

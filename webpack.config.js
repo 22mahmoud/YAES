@@ -1,4 +1,5 @@
 const path = require('path');
+const SriPlugin = require('webpack-subresource-integrity');
 const imageminMozjpeg = require('imagemin-mozjpeg');
 const imageminWebp = require('imagemin-webp');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
@@ -24,16 +25,17 @@ const htmls = fg.sync('build/**/*.html', { dot: false }).map(
       name: template.split('/').slice(1).join('/'),
       template,
       inject: 'head',
-      minify: {
-        removeAttributeQuotes: true,
-        collapseBooleanAttributes: true,
-        collapseWhitespace: true,
-        removeComments: true,
-        sortClassName: true,
-        sortAttributes: true,
-        html5: true,
-        decodeEntities: true,
-      },
+      minify: true,
+      // minify: {
+      //   removeAttributeQuotes: true,
+      //   collapseBooleanAttributes: true,
+      //   collapseWhitespace: true,
+      //   removeComments: true,
+      //   sortClassName: true,
+      //   sortAttributes: true,
+      //   html5: true,
+      //   decodeEntities: true,
+      // },
     })
 );
 
@@ -139,6 +141,11 @@ module.exports = {
     }),
 
     ...htmls,
+
+    new SriPlugin({
+      hashFuncNames: ['sha256', 'sha384'],
+      enabled: true,
+    }),
 
     new PreloadWebpackPlugin({
       rel: 'preload',
