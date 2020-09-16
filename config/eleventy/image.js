@@ -40,6 +40,14 @@ function getSrc(relativeSrc, outputPath) {
 }
 
 async function handleImage({ src: relativeSrc, alt, class: className }) {
+  if (process.env.NODE_ENV === 'development') {
+    return `<div class='image-wrapper'>
+      <img src=${relativeSrc} alt=${alt} ${
+      className ? `class= ${className}` : ''
+    } />
+    </div>`;
+  }
+
   if (!alt) throw new Error(`Missing \`alt\` on myImage from: ${src}`);
 
   const src = getSrc(relativeSrc, this.page.outputPath);
