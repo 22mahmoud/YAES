@@ -68,14 +68,14 @@ async function handleImage({ src: relativeSrc, alt }) {
 
   const img = `<img
     loading="lazy"
-    alt=${alt}
-    src=${originalSrc.url}
-    decoding=async
+    alt="${alt}"
+    src="${originalSrc.url}"
+    decoding="async"
     style="background-size:cover;background-image:url(data:image/webp;base64,${base64Placeholder.toString(
       'base64'
-    )})";
-    width=${originalSrc.width}
-    height=${originalSrc.height}>`;
+    )});"
+    width="${originalSrc.width}"
+    height="${originalSrc.height}">`;
 
   return `<div class="image-wrapper"> <picture> ${sourceWebp} ${sourceJpeg} ${img} </picture> </div>`;
 }
