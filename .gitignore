@@ -2,5 +2,5 @@ node_modules
 web_modules
 dist
 build
-out
+public
 yarn-error.log

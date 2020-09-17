@@ -1,5 +1,5 @@
 # Ignore dist files
 dist/**
 build/**
-out/**
+public/**
 node_module

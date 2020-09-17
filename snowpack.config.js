@@ -10,6 +10,7 @@ module.exports = {
   ],
   devOptions: {
     out: 'build',
+    port: 3000,
     open: 'none',
     hmr: true,
   },

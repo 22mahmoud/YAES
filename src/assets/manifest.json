@@ -1,0 +1,24 @@
+{
+  "name": "Yet another eleventy(11ty) starter",
+  "short_name": "YAES",
+  "description": "starter kit for your next eleventy(11ty) project using postcss, es6, gulp",
+  "dir": "auto",
+  "lang": "en-US",
+  "display": "standalone",
+  "orientation": "any",
+  "start_url": "/",
+  "background_color": "#222",
+  "theme_color": "#222",
+  "icons": [
+    {
+      "src": "/assets/images/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

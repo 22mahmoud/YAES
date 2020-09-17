@@ -2,6 +2,11 @@ const { handleImage } = require('./config/eleventy/image');
 
 module.exports = (cfg) => {
   cfg.addPassthroughCopy({ 'src/assets/fonts': 'fonts' });
+  cfg.addPassthroughCopy('src/**/*.{gif,svg}');
+  cfg.addPassthroughCopy('src/assets/images');
+  cfg.addPassthroughCopy('src/assets/favicon.ico');
+  cfg.addPassthroughCopy('src/assets/manifest.json');
+
   if (process.env.NODE_ENV === 'development') {
     cfg.addPassthroughCopy('src/**/*.{jpg,jpeg,png,webp}');
   }

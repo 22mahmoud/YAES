@@ -1,43 +1,43 @@
 const path = require('path');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const fg = require('fast-glob');
 const SriPlugin = require('webpack-subresource-integrity');
 const imageminMozjpeg = require('imagemin-mozjpeg');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const imageminWebp = require('imagemin-webp');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const webpack = require('webpack');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const PurgecssPlugin = require('purgecss-webpack-plugin');
-const fg = require('fast-glob');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const paths = require('./config/paths');
 
 const cssRegex = /\.css$/;
 
-const htmls = fg.sync('build/**/*.html', { dot: false }).map(
-  (template) =>
-    new HtmlWebpackPlugin({
-      name: template.split('/').slice(1).join('/'),
-      template,
-      inject: 'head',
-      minify: {
-        removeAttributeQuotes: true,
-        collapseBooleanAttributes: true,
-        collapseWhitespace: true,
-        removeComments: true,
-        sortClassName: true,
-        sortAttributes: true,
-        html5: true,
-        decodeEntities: true,
-      },
-    })
-);
+const htmls = paths.html.htmlGlob.map((htmlPath) => {
+  const template = path.relative(__dirname, htmlPath);
+  const filename = template.split('/').slice(1).join('/');
+
+  return new HtmlWebpackPlugin({
+    filename,
+    template,
+    inject: 'head',
+    minify: {
+      removeAttributeQuotes: true,
+      collapseBooleanAttributes: true,
+      collapseWhitespace: true,
+      removeComments: true,
+      sortClassName: true,
+      sortAttributes: true,
+      html5: true,
+      decodeEntities: true,
+    },
+  });
+});
 
 const babelLoader = {
   test: /\.m?js$/,
@@ -111,7 +111,7 @@ module.exports = {
   ],
 
   output: {
-    path: path.resolve(__dirname, 'out'),
+    path: path.resolve(__dirname, 'public'),
     chunkFilename: '[name].[chunkhash:4].js',
     filename: '[name].[chunkhash:8].js',
   },
@@ -130,35 +130,25 @@ module.exports = {
       paths: fg.sync(paths.html.src, { dot: true }),
     }),
 
-    new CopyPlugin({
+    new CopyWebpackPlugin({
       patterns: [
+        {
+          from: 'build/assets',
+          to: 'assets',
+        },
         {
           from: 'build/images',
           to: 'images',
+        },
+        {
+          from: '**/*.gif',
+          context: 'build/',
+          noErrorOnMissing: true,
         },
       ],
     }),
 
     ...htmls,
-
-    new FaviconsWebpackPlugin({
-      logo: path.resolve(__dirname, 'src/logo.png'),
-      cache: '.wwp-cache',
-      inject: true,
-      favicons: {
-        name: 'Yet another eleventy(11ty) starter',
-        short_name: 'YAES',
-        description:
-          'starter kit for your next eleventy(11ty) project using postcss, es6, gulp',
-        dir: 'auto',
-        lang: 'en-US',
-        display: 'standalone',
-        orientation: 'any',
-        start_url: '/',
-        background_color: '#222',
-        theme_color: '#222',
-      },
-    }),
 
     new SriPlugin({
       hashFuncNames: ['sha256', 'sha384'],

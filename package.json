@@ -1,13 +1,14 @@
 {
-  "name": "11ty-starter",
+  "name": "yaes",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "clean": "rimraf out dist build",
+    "clean": "rimraf public dist build",
+    "postbuild": "rimraf dist build",
     "dev": "yarn clean && snowpack dev",
     "sw": "workbox generateSW",
-    "build": "yarn clean && snowpack build && webpack && yarn sw",
+    "build": "yarn clean && snowpack build && webpack && yarn sw && yarn postbuild",
     "lint:fix": "run-p lint:*:fix -l",
     "lint:css": "stylelint src/assets/styles/**/*.css",
     "lint:css:fix": "yarn lint:css --fix",
