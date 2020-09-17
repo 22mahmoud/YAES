@@ -19,6 +19,8 @@ img {
   max-width: 100%;
 }
 
+/* purgecss start ignore */
 main img {
   content-visibility: auto;
 }
+/* purgecss end ignore */
