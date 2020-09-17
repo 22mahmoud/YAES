@@ -6,7 +6,9 @@ title: 'YAES - Yet another eleventy starter.'
 <html lang="en">
   {% include "head.njk" %}
   <body>
-    {{ content | safe }}
+    <main>
+      {{ content | safe }}
+    </main>
 
     {% if env.dev %}
     <script type="module" src="/js/app.js" async defer></script>
