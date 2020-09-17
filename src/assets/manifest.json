@@ -1,7 +1,7 @@
 {
   "name": "Yet another eleventy(11ty) starter",
   "short_name": "YAES",
-  "description": "starter kit for your next eleventy(11ty) project using postcss, es6, gulp",
+  "description": "Starter kit for your next eleventy(11ty) project using postcss, es6, snowpack, webpack.",
   "dir": "auto",
   "lang": "en-US",
   "display": "standalone",
