@@ -1,5 +1,4 @@
 const path = require('path');
-const SriPlugin = require('webpack-subresource-integrity');
 const HtmlCriticalWebpackPlugin = require('html-critical-webpack-plugin');
 const imageminMozjpeg = require('imagemin-mozjpeg');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -121,10 +120,5 @@ module.exports = [
         quality: 50,
       }),
     ],
-  }),
-
-  new SriPlugin({
-    hashFuncNames: ['sha256', 'sha384'],
-    enabled: true,
   }),
 ];
