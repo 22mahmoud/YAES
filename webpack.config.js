@@ -1,6 +1,6 @@
 const path = require('path');
-const fg = require('fast-glob');
 const SriPlugin = require('webpack-subresource-integrity');
+const HtmlCriticalWebpackPlugin = require('html-critical-webpack-plugin');
 const imageminMozjpeg = require('imagemin-mozjpeg');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const imageminWebp = require('imagemin-webp');
@@ -18,26 +18,50 @@ const paths = require('./config/paths');
 
 const cssRegex = /\.css$/;
 
-const htmls = paths.html.htmlGlob.map((htmlPath) => {
-  const template = path.relative(__dirname, htmlPath);
-  const filename = template.split('/').slice(1).join('/');
+const htmls = () =>
+  paths.html.htmlGlob.map((htmlPath) => {
+    const template = path.relative(__dirname, htmlPath);
+    const filename = template.split('/').slice(1).join('/');
 
-  return new HtmlWebpackPlugin({
-    filename,
-    template,
-    inject: 'head',
-    minify: {
-      removeAttributeQuotes: true,
-      collapseBooleanAttributes: true,
-      collapseWhitespace: true,
-      removeComments: true,
-      sortClassName: true,
-      sortAttributes: true,
-      html5: true,
-      decodeEntities: true,
-    },
+    return new HtmlWebpackPlugin({
+      filename,
+      template,
+      inject: 'head',
+      minify: {
+        removeAttributeQuotes: true,
+        collapseBooleanAttributes: true,
+        collapseWhitespace: true,
+        removeComments: true,
+        sortClassName: true,
+        sortAttributes: true,
+        html5: true,
+        decodeEntities: true,
+      },
+    });
   });
-});
+
+const criticalCssFiles = () =>
+  paths.html.htmlGlob.map((htmlPath) => {
+    const src = path
+      .relative(__dirname, htmlPath)
+      .split('/')
+      .slice(1)
+      .join('/');
+
+    return new HtmlCriticalWebpackPlugin({
+      base: path.resolve(__dirname, 'public'),
+      src,
+      dest: src,
+      inline: true,
+      minify: true,
+      extract: true,
+      width: 375,
+      height: 565,
+      penthouse: {
+        blockJSRequests: false,
+      },
+    });
+  });
 
 const babelLoader = {
   test: /\.m?js$/,
@@ -68,6 +92,9 @@ const cssLoader = {
   use: [
     {
       loader: MiniCssExtractPlugin.loader,
+      options: {
+        sourceMap: true,
+      },
     },
     {
       loader: 'css-loader',
@@ -101,10 +128,6 @@ module.exports = {
   target: 'web',
   devtool: 'source-map',
 
-  resolve: {
-    modules: [path.resolve(__dirname, 'build/web_modules'), 'node_modules'],
-  },
-
   entry: [
     path.resolve(__dirname, 'build/js/app.js'),
     path.resolve(__dirname, 'build/styles/main.css'),
@@ -115,6 +138,7 @@ module.exports = {
     chunkFilename: '[name].[chunkhash:4].js',
     filename: '[name].[chunkhash:8].js',
     publicPath: '/',
+    crossOriginLoading: 'anonymous',
   },
 
   module: {
@@ -122,15 +146,6 @@ module.exports = {
   },
   plugins: [
     envConfig,
-    new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].css',
-      chunkFilename: '[id].[contenthash].css',
-    }),
-
-    new PurgecssPlugin({
-      paths: fg.sync(paths.html.src, { dot: true }),
-    }),
-
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -149,13 +164,16 @@ module.exports = {
       ],
     }),
 
-    ...htmls,
+    ...htmls(),
 
-    new SriPlugin({
-      hashFuncNames: ['sha256', 'sha384'],
-      enabled: true,
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css',
+      chunkFilename: '[id].[contenthash].css',
     }),
 
+    new PurgecssPlugin({
+      paths: paths.html.htmlGlob,
+    }),
     new PreloadWebpackPlugin({
       rel: 'preload',
       as(entry) {
@@ -171,6 +189,8 @@ module.exports = {
       defaultAttribute: 'defer',
     }),
 
+    ...criticalCssFiles(),
+
     new ImageminPlugin({
       test: /\.(jpe?g|png|gif|svg|webp)$/i,
       plugins: [
@@ -182,32 +202,26 @@ module.exports = {
         }),
       ],
     }),
+
+    new SriPlugin({
+      hashFuncNames: ['sha256', 'sha384'],
+      enabled: true,
+    }),
   ],
 
   optimization: {
     minimizer: [
       new TerserPlugin({
-        // TerserPlugin config is taken entirely from react-scripts
-        terserOptions: {
-          parse: {
-            ecma: 8,
-          },
-          compress: {},
-          mangle: {
-            safari10: true,
-          },
-          output: {
-            ecma: 5,
-            comments: false,
-            ascii_only: true,
-          },
-        },
         parallel: true,
         cache: true,
         sourceMap: true,
       }),
 
-      new OptimizeCssAssetsPlugin(),
+      new OptimizeCssAssetsPlugin({
+        cssProcessorPluginOptions: {
+          preset: ['advanced', { discardComments: { removeAll: true } }],
+        },
+      }),
     ],
 
     namedModules: true,

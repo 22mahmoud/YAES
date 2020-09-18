@@ -5,16 +5,20 @@
   "license": "MIT",
   "scripts": {
     "clean": "rimraf public dist build",
+    "prebuild": "yarn clean",
     "postbuild": "rimraf dist build",
-    "dev": "yarn clean && snowpack dev",
+    "predev": "yarn clean",
+    "dev": "snowpack dev",
     "sw": "workbox generateSW",
-    "build": "yarn clean && snowpack build && webpack && yarn sw && yarn postbuild",
+    "build": "run-s build:snowpack build:webpack sw",
+    "build:snowpack": "snowpack build",
+    "build:webpack": "webpack",
     "lint:fix": "run-p lint:*:fix -l",
     "lint:css": "stylelint src/assets/styles/**/*.css",
     "lint:css:fix": "yarn lint:css --fix",
-    "lint:js": "eslint './**/*.js' --quiet",
+    "lint:js": "eslint *.js --quiet",
     "lint:js:fix": "yarn lint:js --fix",
-    "format:js": "prettier './**/*.js' --write"
+    "format:js": "prettier *.js --write"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.11.0",
@@ -30,8 +34,10 @@
     "babel-loader": "^8.1.0",
     "browser-sync": "^2.26.12",
     "copy-webpack-plugin": "^6.1.0",
+    "critters-webpack-plugin": "^2.5.0",
     "css-loader": "^4.3.0",
     "cssnano": "^4.1.10",
+    "cssnano-preset-advanced": "^4.0.7",
     "eslint": "^7.9.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.22.0",
@@ -46,6 +52,7 @@
     "gulp-imagemin": "^7.1.0",
     "gulp-postcss": "^8.0.0",
     "gulp-uglify": "^3.0.2",
+    "html-critical-webpack-plugin": "^2.1.0",
     "html-webpack-plugin": "^4.4.1",
     "husky": "^4.3.0",
     "imagemin-mozjpeg": "^9.0.0",
@@ -53,6 +60,7 @@
     "imagemin-webpack-plugin": "^2.4.2",
     "lint-staged": "^10.3.0",
     "mini-css-extract-plugin": "^0.11.2",
+    "npm-run-all": "^4.1.5",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
     "postcss": "^7.0.32",
     "postcss-cli": "^7.1.2",
@@ -82,5 +90,13 @@
   "dependencies": {
     "canvas-confetti": "^1.2.0",
     "turbolinks": "^5.2.0"
-  }
+  },
+  "browserslist": [
+    "defaults",
+    "not ie 11",
+    "not ie_mob 11",
+    "not baidu >= 7.12",
+    "not and_qq >= 1.2",
+    "not op_mini all"
+  ]
 }
