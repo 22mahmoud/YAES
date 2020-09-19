@@ -2,7 +2,7 @@
   "name": "yaes",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "scripts": {
     "clean": "rimraf public dist build",
     "prebuild": "yarn clean",
