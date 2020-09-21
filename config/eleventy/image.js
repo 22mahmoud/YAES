@@ -29,7 +29,14 @@ function generateSrcset(stats) {
 function getSrc(relativeSrc, outputPath) {
   let src = relativeSrc;
 
-  if (!relativeSrc.startsWith('https://')) {
+  if (relativeSrc.startsWith('https://')) {
+    // do nothing
+  } else if (process.env.NODE_ENV === 'development') {
+    src = path.join(
+      '/' + outputPath.split('/').slice(2, -1).join('/'),
+      relativeSrc
+    );
+  } else {
     src = path.relative(
       paths.root,
       path.resolve(outputPath.split('/').slice(0, -1).join('/'), relativeSrc)
@@ -40,15 +47,15 @@ function getSrc(relativeSrc, outputPath) {
 }
 
 async function handleImage({ src: relativeSrc, alt }) {
-  if (process.env.NODE_ENV === 'development') {
-    return `<div class='image-wrapper'>
-      <img src=${relativeSrc} alt=${alt} />
-    </div>`;
-  }
-
   if (!alt) throw new Error(`Missing \`alt\` on myImage from: ${src}`);
 
   const src = getSrc(relativeSrc, this.page.inputPath);
+
+  if (process.env.NODE_ENV === 'development') {
+    return `<div class='image-wrapper'>
+      <img src=${src} alt=${alt} />
+    </div>`;
+  }
 
   let stats = await Image(src, {
     widths: [24, 320, 640, 960, 1200, 1800, 2400],
@@ -59,7 +66,7 @@ async function handleImage({ src: relativeSrc, alt }) {
 
   const originalSrc = stats['jpeg'][stats['jpeg'].length - 1];
 
-  const base64Placeholder = await getPlaceHolder(stats['webp'][0].outputPath);
+  const placeholder = await getPlaceHolder(stats['webp'][0].outputPath);
 
   const srcset = generateSrcset(stats);
 
@@ -71,7 +78,7 @@ async function handleImage({ src: relativeSrc, alt }) {
     alt="${alt}"
     src="${originalSrc.url}"
     decoding="async"
-    style="background-size:cover;background-image:url(data:image/webp;base64,${base64Placeholder.toString(
+    style="background-size:cover;background-image:url(data:image/webp;base64,${placeholder.toString(
       'base64'
     )});"
     width="${originalSrc.width}"
