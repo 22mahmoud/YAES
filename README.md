@@ -26,3 +26,7 @@
   - Inline the critical css and lazy load the rest of css.
   - Remove unwanted css using purgecss.
   - Minify the output using cssnano.
+
+### Contact Form
+
+if you want to add a contact form to this theme try [static website forms](https://fabform.io) from fabform.io
